@@ -120,4 +120,77 @@
   }
   .tbtn.active-tree { background:#14532d; border-color:var(--green); color:var(--green); }
   .tbtn.active-co2  { background:#431407; border-color:var(--orange); color:var(--orange); }
+  
+  .legend-block { margin-bottom:10px; }
+  .legend-title { font-size:0.75rem; font-weight:700; margin-bottom:6px; display:flex;align-items:center;gap:6px; }
+  .legend-sub { font-size:0.62rem; color:var(--muted); margin-bottom:5px; }
+  .grad-bar { height:10px; border-radius:4px; margin-bottom:3px; }
+  .grad-labels { display:flex; justify-content:space-between; font-size:0.58rem; color:var(--muted); font-family:'Space Mono',monospace; }
+
+  
+  .stat-card { background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:8px; }
+  .stat-card-label { font-size:0.62rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; display:flex;align-items:center;gap:5px; }
+  .stat-card-value { font-size:1.6rem; font-weight:800; font-family:'Space Mono',monospace; line-height:1; }
+  .stat-card-sub { font-size:0.68rem; color:var(--muted); margin-top:3px; }
+  .val-green { color:var(--green); }
+  .val-orange { color:var(--orange); }
+  .val-lime { color:var(--lime); }
+
+ 
+  .city-list { overflow-y:auto; max-height:260px; }
+  .city-list::-webkit-scrollbar { width:3px; }
+  .city-list::-webkit-scrollbar-thumb { background:var(--border); }
+  .state-group { border-bottom:1px solid var(--border); }
+  .state-header {
+    padding:7px 14px; font-size:0.63rem; font-weight:700; letter-spacing:1px;
+    text-transform:uppercase; color:var(--muted); background:#0a1209;
+    cursor:pointer; display:flex;justify-content:space-between;align-items:center;
+  }
+  .state-header:hover { color:var(--text); }
+  .state-cities { display:none; }
+  .state-cities.open { display:block; }
+  .city-item {
+    padding:8px 14px; display:flex;align-items:center;gap:8px;
+    cursor:pointer; transition:background 0.15s; border-bottom:1px solid #0a1209;
+    font-size:0.78rem;
+  }
+  .city-item:hover { background:var(--panel2); }
+  .city-item.selected { background:#112018; }
+  .emission-dot { width:9px;height:9px;border-radius:50%;flex-shrink:0; }
+  .city-val { font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--muted); margin-left:auto; }
+
+  
+  #map { flex:1; }
+  .leaflet-container { background:#060d08 !important; }
+
+  
+  .bubble-dot {
+    border-radius:50%; opacity:0.82;
+    border:1.5px solid rgba(255,255,255,0.15);
+    transition:transform 0.2s, opacity 0.2s;
+  }
+  .bubble-dot:hover { opacity:1; transform:scale(1.15); }
+
+  
+  .city-marker {
+    border-radius:50%; border:2px solid rgba(255,255,255,0.25);
+    cursor:pointer; display:flex;align-items:center;justify-content:center;
+    font-weight:700; color:white; font-size:0.58rem;
+    font-family:'Space Mono',monospace; box-shadow:0 0 14px rgba(0,0,0,0.6);
+  }
+  @keyframes pulse-red { 0%,100%{box-shadow:0 0 8px rgba(239,68,68,0.7);}50%{box-shadow:0 0 22px rgba(239,68,68,1);} }
+  .pulse-red { animation:pulse-red 2s infinite; }
+  @keyframes pulse-loc { 0%,100%{box-shadow:0 0 8px rgba(96,165,250,0.8);}50%{box-shadow:0 0 24px rgba(96,165,250,1);} }
+  .pulse-loc { animation:pulse-loc 1.5s infinite; }
+
+ 
+  .leaflet-popup-content-wrapper { background:var(--panel)!important; border:1px solid var(--border)!important; border-radius:10px!important; color:var(--text)!important; box-shadow:0 8px 32px rgba(0,0,0,0.6)!important; }
+  .leaflet-popup-tip { background:var(--panel)!important; }
+  .leaflet-popup-content { margin:14px!important; font-family:'Syne',sans-serif!important; min-width:200px; }
+  .pop-city { font-size:1rem;font-weight:800; }
+  .pop-state { font-size:0.7rem;color:var(--muted);margin-bottom:8px; }
+  .pop-row { display:flex;justify-content:space-between;font-size:0.72rem;margin-bottom:4px;font-family:'Space Mono',monospace; }
+  .pop-btn { margin-top:10px;width:100%;background:var(--green);color:#000;border:none;border-radius:6px;padding:7px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer; }
+  .pop-btn:hover { background:var(--lime); }
+
 
