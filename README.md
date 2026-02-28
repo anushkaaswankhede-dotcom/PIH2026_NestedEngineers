@@ -59,7 +59,7 @@ To develop a map-based environmental intelligence system that enables:
 
 - Data-driven plantation planning
 
--Region-specific carbon offset strategies
+- Region-specific carbon offset strategies
 
 - Improved awareness of carbon footprint
 
