@@ -27,7 +27,7 @@ Trees are planted without considering:
 As a result, many plantation drives fail to create measurable environmental impact.
 
 CORE IDEA:
-There is no integrated, map-based, India-focused digital platform that:
+There is map-based, India-focused digital platform that:
 
 1.Visualizes CO₂ emissions region-wise
 
