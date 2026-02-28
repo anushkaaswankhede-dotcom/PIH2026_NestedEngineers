@@ -1,0 +1,2 @@
+# PIH2026_NestedEngineers
+There is no integrated, map-based, India-focused digital platform that:  Visualizes CO₂ emissions region-wise  Shows tree coverage data district-wise  Estimates the number of trees required to offset emissions  Recommends suitable tree species based on soil type and environmental conditions  Enables individuals and industries to calculate their carbon footprint and offset requirements
