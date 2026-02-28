@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>India Environmental Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+      🇮🇳 India CO₂ & Tree Intelligence Dashboard
+</header>
+<div class="main-container">
+
+    <!-- MAP -->
+    <div id="map"></div>
+
+    <!-- INFO PANEL -->
+    <div id="infoPanel">
+        <h2>City Information</h2>
+        <p><strong>City:</strong> <span id="cityName">Click a city</span></p>
+        <p><strong>CO₂ Emission:</strong> <span id="co2">--</span></p>
+        <p><strong>Trees Required:</strong> <span id="trees">--</span></p>
+        <p><strong>Recommended Trees:</strong> <span id="treeTypes">--</span></p>
+
+        <hr>
+
+        <button onclick="getLocation()">📍 Show My Location (100km)</button>
+    </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
