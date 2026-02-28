@@ -16,6 +16,7 @@ India is facing a rapid increase in carbon dioxide (CO₂) emissions due to indu
 
 At the same time, tree cover in many districts is declining, and plantation efforts are often not data-driven. 
 Trees are planted without considering:
+
 1.Local soil type
 
 2.Climate suitability
