@@ -250,4 +250,35 @@
   <div class="intro-overlay" id="introOverlay">
     <div style="width:52;height:52px;background:var(--green);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;">🌿</div>
     <h2>Carbon <span>Watch</span></h2>
-    
+    <p>Interactive carbon emission tracker across all Indian states and union territories. Visualise tree density, CO₂ levels and get soil-aware reforestation plans.</p>
+  <div class="intro-grid">
+    <div class="intro-card"><div class="ic">📍</div>Use your location or search any city</div>
+    <div class="intro-card"><div class="ic">🔵</div>Bubble grid shows density distribution</div>
+    <div class="intro-card"><div class="ic">🌳</div>Toggle tree density vs CO₂ view</div>
+    <div class="intro-card"><div class="ic">📐</div>Change analysis radius 10–100km</div>
+    <div class="intro-card"><div class="ic">🌱</div>Get exact tree planting plan per city</div>
+  </div>
+  <button class="intro-btn" onclick="document.getElementById('introOverlay').style.display='none'">Launch Dashboard →</button>
+</div>
+
+  <header>
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    <div>
+      <h1>Carbon <span>Watch</span></h1>
+      <div class="tagline">// Emission Intelligence &amp; Reforestation Platform</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-city" id="headerCity">
+      <span style="color:var(--muted);font-size:0.7rem;">▲</span>
+      <span id="headerCityName">Select a city</span>
+    </div>
+    <div class="topbar-stat"><div class="dot-green"></div><span id="headerTrees">Trees: —</span></div>
+    <div class="topbar-stat"><div class="dot-orange"></div><span id="headerCO2">CO₂: —</span></div>
+  </div>
+</header>
+
+  <div class="main" style="position:relative;">
+
+    <div class="sidebar">
