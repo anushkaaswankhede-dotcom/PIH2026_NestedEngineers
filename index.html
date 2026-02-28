@@ -282,3 +282,70 @@
   <div class="main" style="position:relative;">
 
     <div class="sidebar">
+
+      <div class="sb-section">
+      <div class="loc-row">📍 <span id="currentLocLabel">No location selected</span></div>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search city or coordinates..." oninput="handleSearch(this.value)" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <button class="loc-btn" id="locBtn" onclick="useMyLocation()">
+        <span>📍</span> Use My Location
+      </button>
+    </div>
+
+      <div class="sb-section">
+      <div class="sb-label">Analysis Radius</div>
+      <div class="radius-btns">
+        <div class="rbtn" onclick="setRadius(10,this)">10km</div>
+        <div class="rbtn active" onclick="setRadius(25,this)">25km</div>
+        <div class="rbtn" onclick="setRadius(50,this)">50km</div>
+        <div class="rbtn" onclick="setRadius(100,this)">100km</div>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">View Mode</div>
+      <div class="toggle-row">
+        <div class="tbtn active-tree" id="treeToggle" onclick="setMode('tree')">🌳 Tree Density</div>
+        <div class="tbtn" id="co2Toggle" onclick="setMode('co2')">🔥 CO₂ Emission</div>
+      </div>
+    </div>
+
+      <div class="sb-section">
+      <div class="sb-label">Legend</div>
+      <div class="legend-block" id="legendTree">
+        <div class="legend-title"><div class="dot-green"></div> Tree Density</div>
+        <div class="legend-sub">trees per km²</div>
+        <div class="grad-bar" style="background:linear-gradient(to right,#1a3a20,#166534,#15803d,#16a34a,#22c55e,#4ade80,#86efac)"></div>
+        <div class="grad-labels"><span>&lt;10</span><span>50</span><span>100</span><span>200</span><span>300</span><span>400+</span></div>
+      </div>
+      <div class="legend-block" id="legendCO2" style="display:none">
+        <div class="legend-title"><div class="dot-orange"></div> Carbon Emissions</div>
+        <div class="legend-sub">tonnes CO₂ per km²</div>
+        <div class="grad-bar" style="background:linear-gradient(to right,#fef08a,#fbbf24,#f97316,#ef4444,#dc2626,#991b1b)"></div>
+        <div class="grad-labels"><span>&lt;2</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25+</span></div>
+      </div>
+    </div>
+
+      <div class="sb-section">
+      <div class="sb-label" id="statsLabel">Statistics (25km Radius)</div>
+      <div class="stat-card">
+        <div class="stat-card-label">🌲 Tree Density</div>
+        <div class="stat-card-value val-green" id="statTreeDensity">—</div>
+        <div class="stat-card-sub" id="statTreeTotal">Select a city to analyse</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">☁️ CO₂ Emissions</div>
+        <div class="stat-card-value val-orange" id="statCO2">—</div>
+        <div class="stat-card-sub" id="statCO2Total">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">🍃 Canopy Cover</div>
+        <div class="stat-card-value val-lime" id="statCanopy">—</div>
+        <div class="stat-card-sub" id="statCanopySub">—</div>
+      </div>
+    </div>
+
+     
