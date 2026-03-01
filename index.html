@@ -669,6 +669,11 @@ function drawBubbles(centerLat, centerLng, radiusKm) {
     function focusCity(city) {
   selectedCity = city;
   currentCenter = {lat: city.lat, lng: city.lng};
+      document.getElementById('headerCityName').textContent = `${city.city}, ${city.state}`;
+  const td = calcTreeDensity(city);
+  document.getElementById('headerTrees').textContent = `Trees: ${td}/km²`;
+  document.getElementById('headerCO2').textContent = `CO₂: ${(city.emission/3).toFixed(1)} t/km²`;
+
   
     
       
