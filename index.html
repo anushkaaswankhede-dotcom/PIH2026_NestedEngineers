@@ -513,5 +513,21 @@ let radiusCircle = null;
 let locationMarker = null;
 let currentCenter = null;
     
-
+//  HELPERS
+// ═══════════════════════════════════
+function emissionColor(e) {
+  if (e < 5)  return "#22c55e";
+  if (e < 10) return "#a3e635";
+  if (e < 15) return "#fbbf24";
+  if (e < 25) return "#f97316";
+  return "#ef4444";
+}
+function emissionLabel(e) {
+  if (e < 5)  return "Low";
+  if (e < 10) return "Moderate";
+  if (e < 15) return "High";
+  if (e < 25) return "Very High";
+  return "Critical";
+}
+function treeDensityColor(d) {
 
