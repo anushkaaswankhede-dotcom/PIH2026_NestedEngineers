@@ -354,8 +354,7 @@
 
 </div>
 
-  <script>
-// data
+<script>
 const cityData = [
   { state:"Andhra Pradesh",    city:"Visakhapatnam",      lat:17.686,lng:83.218, emission:18.4,soil:"Red Laterite",    climate:"Tropical Coastal" },
   { state:"Andhra Pradesh",    city:"Vijayawada",          lat:16.506,lng:80.648, emission:11.2,soil:"Alluvial",        climate:"Tropical Wet & Dry" },
@@ -441,7 +440,6 @@ const cityData = [
   { state:"West Bengal",       city:"Kolkata",             lat:22.572,lng:88.363, emission:29.4,soil:"Alluvial",        climate:"Tropical Wet & Dry" },
   { state:"West Bengal",       city:"Howrah",              lat:22.587,lng:88.297, emission:22.8,soil:"Alluvial",        climate:"Tropical" },
   { state:"West Bengal",       city:"Durgapur",            lat:23.480,lng:87.320, emission:34.2,soil:"Red Laterite",    climate:"Tropical" },
-  // Union Territories
   { state:"Andaman & Nicobar", city:"Port Blair",          lat:11.667,lng:92.737, emission:1.8, soil:"Forest Loam",     climate:"Tropical Rainforest" },
   { state:"Andaman & Nicobar", city:"Diglipur",            lat:13.267,lng:92.965, emission:0.4, soil:"Forest Loam",     climate:"Tropical" },
   { state:"Andaman & Nicobar", city:"Car Nicobar",         lat:9.157, lng:92.817, emission:0.3, soil:"Coastal Sandy",   climate:"Tropical" },
@@ -467,9 +465,6 @@ const cityData = [
   { state:"Puducherry",        city:"Karaikal",            lat:10.920,lng:79.836, emission:2.4, soil:"Alluvial",         climate:"Tropical" },
   { state:"Puducherry",        city:"Mahe",                lat:11.700,lng:75.534, emission:1.2, soil:"Laterite",         climate:"Tropical Monsoon" },
 ];
-
-//  TREE DATABASE
-
 const treeSuggestions = {
   "Sandy Desert":     [{name:"Khejri",   emoji:"🌵",absorption:5,  duration:"3–5 yrs",note:"Drought-resistant native"},{name:"Rohida",  emoji:"🌳",absorption:6,  duration:"4–6 yrs",note:"Deep-root water seeker"}],
   "Arid":             [{name:"Khejri",   emoji:"🌵",absorption:5,  duration:"3–5 yrs",note:"Thrives in arid zones"},   {name:"Ber",     emoji:"🌿",absorption:4,  duration:"2–4 yrs",note:"Salt-tolerant"}],
@@ -488,18 +483,14 @@ const treeSuggestions = {
   "Mountain Desert":  [{name:"Sea Buckthorn",emoji:"🌿",absorption:6,duration:"3–5 yrs",note:"Cold arid specialist"}, {name:"Juniper", emoji:"🌿",absorption:8,  duration:"5–8 yrs",note:"High altitude survivor"}],
   "default":          [{name:"Neem",     emoji:"🌿",absorption:7.5,duration:"2–3 yrs",note:"Universal Indian tree"},   {name:"Peepal",  emoji:"🍃",absorption:100,duration:"5–8 yrs",note:"Sacred + high impact"},{name:"Bamboo",emoji:"🎋",absorption:35,duration:"1–2 yrs",note:"Fastest CO₂ fixer"}],
 };
-    
-//  STATE
 
-let currentMode = 'tree';   // 'tree' or 'co2'
-let currentRadius = 25;     // km
+let currentMode = 'tree';   
+let currentRadius = 25;     
 let selectedCity = null;
 let bubbleLayers = [];
 let radiusCircle = null;
 let locationMarker = null;
 let currentCenter = null;
-    
-//  HELPERS
 function emissionColor(e) {
   if (e < 5)  return "#22c55e";
   if (e < 10) return "#a3e635";
@@ -592,8 +583,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
 
 function drawBubbles(centerLat, centerLng, radiusKm) {
   clearBubbles();
-
-  
   radiusCircle = L.circle([centerLat, centerLng], {
     radius: radiusKm * 1000,
     color: '#22c55e',
@@ -604,8 +593,6 @@ function drawBubbles(centerLat, centerLng, radiusKm) {
   }).addTo(map);
   const steps = radiusKm <= 10 ? 8 : radiusKm <= 25 ? 10 : radiusKm <= 50 ? 12 : 14;
   const stepDeg = (radiusKm / 111) * 2 / steps;
-
-  // Find nearby cities for colour blending
   const nearbyCities = cityData.filter(c =>
     distKm(centerLat, centerLng, c.lat, c.lng) <= radiusKm * 1.5
   );
@@ -620,24 +607,19 @@ function drawBubbles(centerLat, centerLng, radiusKm) {
       const bLng = centerLng + dy * stepDeg * 1.3;
       const dist = distKm(centerLat, centerLng, bLat, bLng);
       if (dist > radiusKm) continue;
-
-      // Distance decay factor — centre is most intense
       const decay = 1 - (dist / radiusKm) * 0.5;
       const noise = 0.7 + Math.random() * 0.6;
        let color, value;
       if (currentMode === 'tree') {
-        // Tree density — higher density (green) where emission is lower
         const density = Math.round((380 - baseEmission * 8) * decay * noise);
         color = treeDensityColor(Math.max(5, density));
         value = Math.max(5, density);
       } else {
-        // CO2 — higher near industrial centre
         const co2 = baseEmission * decay * noise;
         color = co2BubbleColor(co2);
         value = co2.toFixed(1);
       }
 
-      // Bubble size varies slightly
       const bubbleSize = Math.round((radiusKm <= 10 ? 18 : radiusKm <= 25 ? 14 : radiusKm <= 50 ? 10 : 7) * (0.7 + Math.random() * 0.6));
 
       const icon = L.divIcon({
@@ -851,4 +833,45 @@ function selectFromSearch(cityName, stateName) {
   focusCity(city);
   city._marker && city._marker.openPopup();
 }
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap'))
+    document.getElementById('searchResults').classList.remove('open');
+});
+
+function buildCityList() {
+  const grouped = {};
+  cityData.forEach(c => {
+    if (!grouped[c.state]) grouped[c.state] = [];
+    grouped[c.state].push(c);
+  });
+  document.getElementById('cityList').innerHTML = Object.entries(grouped)
+    .sort((a,b) => a[0].localeCompare(b[0]))
+    .map(([state, cities]) => `
+      <div class="state-group">
+        <div class="state-header" onclick="this.nextElementSibling.classList.toggle('open')">
+          <span>${state}</span><span style="color:var(--accent);font-size:0.8rem">▾</span>
+        </div>
+        <div class="state-cities">
+          ${cities.sort((a,b) => b.emission-a.emission).map(c => `
+            <div class="city-item" data-city="${c.city}" onclick="focusAndOpen('${c.city}','${c.state}')">
+              <div class="emission-dot" style="background:${emissionColor(c.emission)}"></div>
+              <span>${c.city}</span>
+              <span class="city-val">${c.emission}MT</span>
+            </div>`).join('')}
+        </div>
+      </div>`).join('');
+}
+
+function focusAndOpen(cityName, stateName) {
+  const city = cityData.find(c => c.city===cityName && c.state===stateName);
+  if (!city) return;
+  focusCity(city);
+  openDetail(city);
+}
+
+buildCityList();
+</script>
+</body>
+</html>
 
