@@ -675,6 +675,10 @@ function drawBubbles(centerLat, centerLng, radiusKm) {
   document.getElementById('headerCO2').textContent = `CO₂: ${(city.emission/3).toFixed(1)} t/km²`;
 document.getElementById('currentLocLabel').textContent = `${city.city}, ${city.state}`;
        updateStats(city);
+      drawBubbles(city.lat, city.lng, currentRadius);
+
+  map.flyTo([city.lat, city.lng], currentRadius <= 10 ? 12 : currentRadius <= 25 ? 10 : currentRadius <= 50 ? 9 : 8, {duration:1.2});
+
   
     
       
