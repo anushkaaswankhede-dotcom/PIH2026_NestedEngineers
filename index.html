@@ -710,6 +710,52 @@ function openDetail(city) {
       <div class="bar-label"><span>CO₂ Output</span><span style="color:${color}">${city.emission} MT</span></div>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,(city.emission/40)*100)}%;background:${color}"></div></div>
     </div>
-
+    <div class="d-section">
+      <h3>Area Statistics (${currentRadius}km)</h3>
+      <div class="sw-row">
+        <div class="sw-card"><div class="sw-icon">🌲</div><div style="font-weight:800;color:var(--green)">${td}</div><div class="sw-lbl">Trees/km²</div></div>
+        <div class="sw-card"><div class="sw-icon">🍃</div><div style="font-weight:800;color:var(--lime)">${canopy}%</div><div class="sw-lbl">Canopy</div></div>
+        <div class="sw-card"><div class="sw-icon">☁️</div><div style="font-weight:800;color:var(--orange)">${(city.emission/3).toFixed(1)}</div><div class="sw-lbl">t CO₂/km²</div></div>
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>Local Conditions</h3>
+      <div class="sw-row">
+        <div class="sw-card"><div class="sw-icon">🪨</div><div style="font-weight:700;font-size:0.72rem">${city.soil}</div><div class="sw-lbl">Soil Type</div></div>
+        <div class="sw-card"><div class="sw-icon">🌤️</div><div style="font-weight:700;font-size:0.72rem">${city.climate}</div><div class="sw-lbl">Climate</div></div>
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>🌳 Tree Planting Plan</h3>
+      <div class="trees-box">
+        <div class="num">${needed}</div>
+        <div class="lbl">trees needed to offset 20% of annual emissions</div>
+      </div>
+      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:10px;font-family:'Space Mono',monospace;">
+        Based on best trees for <b style="color:var(--text)">${city.soil}</b> soil × <b style="color:var(--text)">${city.climate}</b> climate
+      </div>
+      <div class="tree-grid">
+        ${trees.map(t=>`
+          <div class="tree-card">
+            <div class="tc-emoji">${t.emoji}</div>
+            <div class="tc-name">${t.name}</div>
+            <div class="tc-info">${t.absorption} kg CO₂/yr</div>
+            <div class="tc-info">Ready: ${t.duration}</div>
+            <div class="tc-note">${t.note}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>🌿 Care Guidelines</h3>
+      <div class="care-item">🌧️ Water 2–3 litres/day per sapling for first 2 seasons</div>
+      <div class="care-item">📅 Best planting: October–February (avoid peak summer)</div>
+      <div class="care-item">🪣 Mix organic compost with local soil at 30:70 ratio</div>
+      <div class="care-item">📏 Maintain 3–5 metre spacing between trees</div>
+      <div class="care-item">🦟 Neem oil spray for pest control in Year 1</div>
+      <div class="care-item">📊 Peak CO₂ absorption after 5–8 years of growth</div>
+    </div>
+  `;
+  document.getElementById('detailPanel').classList.add('open');
+}
     
 
