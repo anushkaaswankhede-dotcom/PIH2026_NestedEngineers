@@ -548,5 +548,29 @@ function co2BubbleColor(e) {
   if (e < 20) return "#dc2626";
   return "#991b1b";
 }
-
+// derive tree density from emission (inverse relationship + climate factor)
+function calcTreeDensity(city) {
+  const base = Math.max(10, 420 - city.emission * 9.5);
+  const climateBonus = city.climate.includes("Rainforest") ? 80 :
+                       city.climate.includes("Monsoon") ? 40 :
+                       city.climate.includes("Humid") ? 30 :
+                       city.climate.includes("Temperate") ? 50 :
+                       city.climate.includes("Arid") ? -30 : 0;
+  return Math.max(8, Math.round(base + climateBonus + (Math.random() * 20 - 10)));
+}
+function calcCanopy(city) {
+  return Math.min(85, Math.max(5, Math.round(90 - city.emission * 1.8)));
+}
+function calcTrees(city) {
+  const trees = treeSuggestions[city.soil] || treeSuggestions["default"];
+  const bestAbs = Math.max(...trees.map(t => t.absorption));
+  const targetKg = city.emission * 1_000_000 * 0.20;
+  return Math.ceil(targetKg / bestAbs);
+  }
+// haversine distance km
+function distKm(lat1,lng1,lat2,lng2) {
+  const R=6371, dLat=(lat2-lat1)*Math.PI/180, dLng=(lng2-lng1)*Math.PI/180;
+  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
 
