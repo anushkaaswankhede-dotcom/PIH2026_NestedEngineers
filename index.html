@@ -665,8 +665,30 @@ function drawBubbles(centerLat, centerLng, radiusKm) {
     const el = document.querySelector(`[data-city="${city.city}"]`);
     if (el) { el.classList.add('selected'); el.scrollIntoView({block:'nearest'}); }
  }
-  
-    
+
+function updateStats(city) {
+  const td = calcTreeDensity(city);
+  const areaKm = Math.PI * currentRadius * currentRadius;
+  const totalTrees = Math.round(td * areaKm);
+  const totalCO2 = Math.round((city.emission / 3) * areaKm);
+  const canopy = calcCanopy(city);
+
+  document.getElementById('statsLabel').textContent = `Statistics (${currentRadius}km Radius)`;
+  document.getElementById('statTreeDensity').textContent = td;
+  document.getElementById('statTreeTotal').textContent = `${totalTrees.toLocaleString('en-IN')} total trees in area`;
+  document.getElementById('statCO2').textContent = (city.emission / 3).toFixed(1);
+  document.getElementById('statCO2Total').textContent = `${totalCO2.toLocaleString('en-IN')} tonnes total in area`;
+  document.getElementById('statCanopy').textContent = canopy + '%';
+  document.getElementById('statCanopySub').textContent = canopy > 50 ? 'Good canopy cover' : canopy > 25 ? 'Moderate — needs improvement' : 'Critical — urgent planting needed';
+}  
+
+function selectCityFromPopup(cityName, stateName) {
+  const city = cityData.find(c => c.city===cityName && c.state===stateName);
+  if (!city) return;
+  map.closePopup();
+  openDetail(city);
+}
+
       
 
     
