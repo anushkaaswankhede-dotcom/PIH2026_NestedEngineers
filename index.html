@@ -827,3 +827,28 @@ function useMyLocation() {
   }, {enableHighAccuracy:true, timeout:10000});
 }
 
+function handleSearch(val) {
+  const q = val.trim().toLowerCase();
+  const resultsEl = document.getElementById('searchResults');
+  if (q.length < 2) { resultsEl.classList.remove('open'); return; }
+  const matches = cityData.filter(c =>
+    c.city.toLowerCase().includes(q) || c.state.toLowerCase().includes(q)
+  ).slice(0, 8);
+  if (matches.length === 0) { resultsEl.classList.remove('open'); return; }
+  resultsEl.innerHTML = matches.map(c => `
+    <div class="sr-item" onclick="selectFromSearch('${c.city}','${c.state}')">
+      <div>${c.city} <span style="color:${emissionColor(c.emission)};font-size:0.68rem">● ${emissionLabel(c.emission)}</span></div>
+      <div class="sr-state">${c.state}</div>
+    </div>`).join('');
+  resultsEl.classList.add('open');
+}
+
+function selectFromSearch(cityName, stateName) {
+  const city = cityData.find(c => c.city===cityName && c.state===stateName);
+  if (!city) return;
+  document.getElementById('searchInput').value = cityName;
+  document.getElementById('searchResults').classList.remove('open');
+  focusCity(city);
+  city._marker && city._marker.openPopup();
+}
+
