@@ -689,7 +689,27 @@ function selectCityFromPopup(cityName, stateName) {
   openDetail(city);
 }
 
-      
+function openDetail(city) {
+  const trees = treeSuggestions[city.soil] || treeSuggestions["default"];
+  const needed = calcTrees(city).toLocaleString('en-IN');
+  const color = emissionColor(city.emission);
+  const td = calcTreeDensity(city);
+  const canopy = calcCanopy(city);    
+
+  document.getElementById('detailCityTitle').textContent = `${city.city} — Details`;
+  document.getElementById('detailContent').innerHTML = `
+    <div class="d-section">
+      <div class="d-city">${city.city}</div>
+      <div class="d-state">📍 ${city.state}</div>
+      <div class="d-badge" style="background:${color}22;border:1px solid ${color};color:${color};">
+        ● ${city.emission} MT CO₂/yr &nbsp;—&nbsp; ${emissionLabel(city.emission)}
+      </div>
+    </div>
+    <div class="d-section">
+      <h3>Emission Bar</h3>
+      <div class="bar-label"><span>CO₂ Output</span><span style="color:${color}">${city.emission} MT</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,(city.emission/40)*100)}%;background:${color}"></div></div>
+    </div>
 
     
 
