@@ -758,4 +758,72 @@ function openDetail(city) {
   document.getElementById('detailPanel').classList.add('open');
 }
     
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+}
+
+function setRadius(km, el) {
+  currentRadius = km;
+  document.querySelectorAll('.rbtn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('statsLabel').textContent = `Statistics (${km}km Radius)`;
+  if (currentCenter) {
+    drawBubbles(currentCenter.lat, currentCenter.lng, km);
+    if (selectedCity) updateStats(selectedCity);
+  }
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('treeToggle').className = 'tbtn' + (mode==='tree' ? ' active-tree' : '');
+  document.getElementById('co2Toggle').className  = 'tbtn' + (mode==='co2'  ? ' active-co2'  : '');
+  document.getElementById('legendTree').style.display = mode==='tree' ? '' : 'none';
+  document.getElementById('legendCO2').style.display  = mode==='co2'  ? '' : 'none';
+  if (currentCenter) drawBubbles(currentCenter.lat, currentCenter.lng, currentRadius);
+}
+
+function useMyLocation() {
+  const btn = document.getElementById('locBtn');
+  if (!navigator.geolocation) { alert('Geolocation not supported by your browser.'); return; }
+  btn.classList.add('loading');
+  btn.textContent = '⌛ Locating...';
+  navigator.geolocation.getCurrentPosition(pos => {
+    const {latitude:lat, longitude:lng} = pos.coords;
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span>📍</span> Use My Location';
+    
+    if (locationMarker) { map.removeLayer(locationMarker); locationMarker = null; }
+    
+    const locIcon = L.divIcon({
+      className:'',
+      html:`<div class="city-marker pulse-loc" style="width:20px;height:20px;background:#3b82f6;border-color:#93c5fd;"></div>`,
+      iconSize:[20,20],iconAnchor:[10,10]
+    });
+    locationMarker = L.marker([lat,lng],{icon:locIcon}).addTo(map);
+    locationMarker.bindPopup('<b>📍 Your Location</b><br><span style="font-size:0.72rem;color:var(--muted)">Analysing nearest cities...</span>').openPopup();
+
+    currentCenter = {lat,lng};
+    document.getElementById('currentLocLabel').textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+    document.getElementById('headerCityName').textContent = 'Your Location';
+
+    let nearest = null, minDist = Infinity;
+    cityData.forEach(c => {
+      const d = distKm(lat,lng,c.lat,c.lng);
+      if (d < minDist) { minDist = d; nearest = c; }
+    });
+    if (nearest) {
+      selectedCity = nearest;
+      updateStats(nearest);
+      document.getElementById('headerTrees').textContent = `Trees: ${calcTreeDensity(nearest)}/km²`;
+      document.getElementById('headerCO2').textContent = `CO₂: ${(nearest.emission/3).toFixed(1)} t/km²`;
+    }
+
+    drawBubbles(lat, lng, currentRadius);
+    map.flyTo([lat,lng], 10, {duration:1.5});
+  }, err => {
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span>📍</span> Use My Location';
+    alert('Could not get location: ' + err.message);
+  }, {enableHighAccuracy:true, timeout:10000});
+}
 
