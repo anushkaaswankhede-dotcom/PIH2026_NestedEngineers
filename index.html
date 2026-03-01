@@ -531,3 +531,22 @@ function emissionLabel(e) {
 }
 function treeDensityColor(d) {
 
+   // d: trees per km²
+  if (d < 10)  return "#1a3a20";
+  if (d < 50)  return "#14532d";
+  if (d < 100) return "#15803d";
+  if (d < 200) return "#16a34a";
+  if (d < 300) return "#22c55e";
+  if (d < 400) return "#4ade80";
+  return "#86efac";
+}
+function co2BubbleColor(e) {
+  if (e < 2)  return "#fef08a";
+  if (e < 5)  return "#fbbf24";
+  if (e < 10) return "#f97316";
+  if (e < 15) return "#ef4444";
+  if (e < 20) return "#dc2626";
+  return "#991b1b";
+}
+
+
