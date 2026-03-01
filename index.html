@@ -502,4 +502,16 @@ const treeSuggestions = {
   "Mountain Desert":  [{name:"Sea Buckthorn",emoji:"🌿",absorption:6,duration:"3–5 yrs",note:"Cold arid specialist"}, {name:"Juniper", emoji:"🌿",absorption:8,  duration:"5–8 yrs",note:"High altitude survivor"}],
   "default":          [{name:"Neem",     emoji:"🌿",absorption:7.5,duration:"2–3 yrs",note:"Universal Indian tree"},   {name:"Peepal",  emoji:"🍃",absorption:100,duration:"5–8 yrs",note:"Sacred + high impact"},{name:"Bamboo",emoji:"🎋",absorption:35,duration:"1–2 yrs",note:"Fastest CO₂ fixer"}],
 };
+    
+//  STATE
+
+let currentMode = 'tree';   // 'tree' or 'co2'
+let currentRadius = 25;     // km
+let selectedCity = null;
+let bubbleLayers = [];
+let radiusCircle = null;
+let locationMarker = null;
+let currentCenter = null;
+    
+
 
