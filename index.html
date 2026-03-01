@@ -353,4 +353,50 @@
       <div class="city-list" id="cityList"></div>
     </div>
 
+  </div>    
+    <!-- MAP -->
+  <div id="map" style="flex:1;position:relative;"></div>
+
+  <!-- DETAIL PANEL (slides in from right) -->
+  <div class="detail-overlay" id="detailPanel">
+    <div class="detail-close">
+      <span id="detailCityTitle">City Details</span>
+      <button class="close-btn" onclick="closeDetail()">✕</button>
+    </div>
+    <div id="detailContent" style="flex:1;"></div>
   </div>
+
+</div>
+
+  <script>
+// data
+const cityData = [
+  { state:"Andhra Pradesh",    city:"Visakhapatnam",      lat:17.686,lng:83.218, emission:18.4,soil:"Red Laterite",    climate:"Tropical Coastal" },
+  { state:"Andhra Pradesh",    city:"Vijayawada",          lat:16.506,lng:80.648, emission:11.2,soil:"Alluvial",        climate:"Tropical Wet & Dry" },
+  { state:"Andhra Pradesh",    city:"Guntur",              lat:16.307,lng:80.437, emission:7.8, soil:"Black Cotton",    climate:"Semi-Arid" },
+  { state:"Arunachal Pradesh", city:"Itanagar",            lat:27.104,lng:93.615, emission:1.2, soil:"Forest Loam",     climate:"Subtropical Highland" },
+  { state:"Arunachal Pradesh", city:"Naharlagun",          lat:27.104,lng:93.696, emission:0.8, soil:"Forest Loam",     climate:"Subtropical Highland" },
+  { state:"Arunachal Pradesh", city:"Pasighat",            lat:28.066,lng:95.325, emission:0.6, soil:"Alluvial",        climate:"Subtropical" },
+  { state:"Assam",             city:"Guwahati",            lat:26.144,lng:91.736, emission:9.4, soil:"Alluvial",        climate:"Subtropical Humid" },
+  { state:"Assam",             city:"Dibrugarh",           lat:27.480,lng:94.912, emission:5.6, soil:"Alluvial",        climate:"Subtropical Humid" },
+  { state:"Assam",             city:"Silchar",             lat:24.827,lng:92.798, emission:3.2, soil:"Laterite",        climate:"Subtropical Humid" },
+  { state:"Bihar",             city:"Patna",               lat:25.594,lng:85.137, emission:14.2,soil:"Alluvial",        climate:"Humid Subtropical" },
+  { state:"Bihar",             city:"Gaya",                lat:24.796,lng:85.012, emission:8.6, soil:"Alluvial",        climate:"Semi-Arid" },
+  { state:"Bihar",             city:"Muzaffarpur",         lat:26.121,lng:85.364, emission:6.3, soil:"Alluvial",        climate:"Humid Subtropical" },
+  { state:"Chhattisgarh",      city:"Raipur",              lat:21.251,lng:81.629, emission:22.8,soil:"Red Laterite",    climate:"Tropical Wet & Dry" },
+  { state:"Chhattisgarh",      city:"Bhilai",              lat:21.194,lng:81.377, emission:31.2,soil:"Red Laterite",    climate:"Tropical" },
+  { state:"Chhattisgarh",      city:"Bilaspur",            lat:22.090,lng:82.148, emission:12.4,soil:"Red",             climate:"Tropical" },
+  { state:"Goa",               city:"Panaji",              lat:15.499,lng:73.824, emission:3.8, soil:"Laterite",        climate:"Tropical Monsoon" },
+  { state:"Goa",               city:"Margao",              lat:15.274,lng:73.958, emission:2.9, soil:"Laterite",        climate:"Tropical Monsoon" },
+  { state:"Goa",               city:"Vasco da Gama",       lat:15.394,lng:73.812, emission:4.1, soil:"Coastal Sandy",   climate:"Tropical" },
+  { state:"Gujarat",           city:"Ahmedabad",           lat:23.022,lng:72.572, emission:28.6,soil:"Black Cotton",    climate:"Semi-Arid" },
+  { state:"Gujarat",           city:"Surat",               lat:21.170,lng:72.831, emission:24.3,soil:"Alluvial",        climate:"Tropical Wet & Dry" },
+  { state:"Gujarat",           city:"Vadodara",            lat:22.307,lng:73.181, emission:19.7,soil:"Black Cotton",    climate:"Semi-Arid" },
+  { state:"Haryana",           city:"Faridabad",           lat:28.408,lng:77.317, emission:21.4,soil:"Alluvial",        climate:"Semi-Arid" },
+  { state:"Haryana",           city:"Gurugram",            lat:28.459,lng:77.026, emission:18.9,soil:"Alluvial",        climate:"Semi-Arid" },
+  { state:"Haryana",           city:"Panipat",             lat:29.391,lng:76.967, emission:16.2,soil:"Alluvial",        climate:"Semi-Arid" },
+  { state:"Himachal Pradesh",  city:"Shimla",              lat:31.104,lng:77.173, emission:2.1, soil:"Mountain Forest", climate:"Temperate" },
+  { state:"Himachal Pradesh",  city:"Dharamshala",         lat:32.219,lng:76.323, emission:1.4, soil:"Mountain Forest", climate:"Temperate" },
+  { state:"Himachal Pradesh",  city:"Solan",               lat:30.908,lng:77.098, emission:1.8, soil:"Red Sandy",       climate:"Subtropical Highland" },
+  
+];
